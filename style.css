@@ -18,6 +18,8 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 5%;
+  background-color: grey;
+  padding-top: 1rem;
 }
 
 .slider {
@@ -29,11 +31,11 @@ body {
 .slides {
   display: flex;
   transition: transform 1s ease;
-  width: 500%;
+  width: 500%; /* 5 slajdów */
 }
 
 .slide {
-  width: 20%;
+  width: 20%; /* Każdy slajd zajmuje 1/5 szerokości (100% / 5) */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +56,7 @@ input[type="radio"] {
   display: none;
 }
 
+/* Płynna zmiana slajdów */
 #slide1:checked ~ .slides {
   transform: translateX(0);
 }
@@ -74,29 +77,59 @@ input[type="radio"] {
   transform: translateX(-80%);
 }
 
+/* Ustawienie podpisów i kontrolek obok siebie */
+.caption-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.captions {
+  display: flex;
+  justify-content: left;
+  height: 2rem;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.caption {
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 1s ease;
+  position: absolute;
+}
+
+#slide1:checked ~ .caption-controls .captions .caption:nth-child(1),
+#slide2:checked ~ .caption-controls .captions .caption:nth-child(2),
+#slide3:checked ~ .caption-controls .captions .caption:nth-child(3),
+#slide4:checked ~ .caption-controls .captions .caption:nth-child(4),
+#slide5:checked ~ .caption-controls .captions .caption:nth-child(5) {
+  opacity: 1;
+}
+
+/* Kontrolki */
 .controls {
   display: flex;
   justify-content: center;
   margin-left: 1rem;
+  z-index: 1;
 }
 
 .control {
-  width: 1.5rem;
-  height: 1.5rem;
   margin: 0 0.75rem;
-  background-color: #888;
+  background-color: lightblue;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s;
-  padding: 1rem;
+  padding: 0.3rem;
+  border: 2px solid lightblue;
 }
 
 .control:hover {
-  background-color: #555;
-}
-
-.control:active {
-  background-color: #333;
+  background-color: white;
+  border-color: white;
 }
 
 /* Aktywne kontrolki */
@@ -105,5 +138,26 @@ input[type="radio"] {
 #slide3:checked ~ .caption-controls .controls label[for="slide3"],
 #slide4:checked ~ .caption-controls .controls label[for="slide4"],
 #slide5:checked ~ .caption-controls .controls label[for="slide5"] {
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.00001);
+  border-color: lightblue;
+}
+
+@media (max-width: 320px) {
+  .caption-controls {
+    flex-direction: column-reverse; /* Kontrolki nad podpisami */
+    align-items: center; /* Wyśrodkowanie zawartości */
+    margin-top: 1rem;
+  }
+
+  .controls {
+    margin-left: 0; /* Usunięcie marginesu po lewej stronie */
+    margin-bottom: 1rem; /* Dodanie marginesu od dołu dla odstępu od podpisów */
+  }
+
+  .captions {
+    justify-content: left; /* Wyśrodkowanie podpisów */
+    width: 100%; /* Szerokość kontenera na 100% */
+    text-align: center; /* Wyrównanie tekstu do środka */
+    position: static; /* Usunięcie pozycji absolutnej */
+  }
 }
