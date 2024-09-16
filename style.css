@@ -150,3 +150,23 @@ input[type="radio"] {
   background-color: rgba(0, 0, 0, 0.00001);
   border-color: lightblue;
 }
+
+@media (max-width: 20rem) {
+  .caption-controls {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .controls {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .captions {
+    justify-content: left;
+    width: 100%;
+    text-align: center;
+    position: static;
+  }
+}
